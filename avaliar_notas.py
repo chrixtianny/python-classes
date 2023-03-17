@@ -16,7 +16,6 @@ def entrada():
         resposta = [ch for ch in r]
         resultado = []
         for i in range (len(gabarito)):
-            
             if gabarito[i] == resposta[i]:
                 resultado.append(int(1))
             else:
