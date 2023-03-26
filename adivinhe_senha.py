@@ -1,63 +1,59 @@
-k = int(input())
-t = 1 
+k = int(input()) # onde k é numero de jogos
+tentativa = 1
+
 def entrada():
-    n = int(input())
+    n = int(input()) # onde n é numero de digitos na senha
+    while n<1 or n>7:
+        n = int(input())
     senhas = input()
-    tentativas(t, k, n, senhas)
+    while len(senhas) != n:
+        senhas = input()
+    tentativas(k, n, senhas)
 
-def tentativas(t, k, n, senhas):
-    if not (0 <= n <= 8):
-        return
+def tentativas(k, n, senhas):
 
-    while t <= k:
+    while tentativa < k+1:
         try:
-            chute = input()
             excelente = 0
             bom = 0
+            chute = input()
+
             if chute == ('0'*n):
-                if t == k:
+                if tentativa == k:
                     break
                 else: 
-                    n = 0
                     entrada()
+                    return
                 
             elif chute == senhas:
                 excelente = n
                 print("({},{})".format(excelente, bom))
-                if t == k:
-                    quit()
+                if tentativa == k:
+                    return
                 else:
-                    t = t + 1
-                    #chute.clear()
-                    #senha.clear()
-                    #digitos_senha.clear()
                     entrada()
                     return
+                    
             else:
-                chute = list(chute)
-                senha = list(senhas)
     
-                digitos_senha = senha.copy()
-                #print(digitos_senha)
-                for i, (ch, sn) in enumerate(zip(chute, senha)):
-                    if ch == sn:
+                acertados = []
+            for i in range(n):
+                if chute[i] not in acertados:
+                    if chute[i] == senhas[i]:
                         excelente += 1
-                        digitos_senha.remove(ch)
-                        #print(digitos_senha)
-        
-                for ch in chute:
-                    if ch in digitos_senha:
+                        acertados.append(chute[i])
+                        
+                    elif chute[i] in senhas and chute[i] not in acertados:
                         bom += 1
-                        digitos_senha.remove(ch)      
+                           
+                else:
+                    continue
 
-                print("({},{})".format(excelente, bom))
-                      
         except:
             break
-        
-        
-if k != 0*k:
+            
+        print(f'({excelente},{bom})')
+    return
+
+if k != 0:   
     entrada()
-else:
-    pass
-        
